@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sdc.api.entities.Combustivel;
 import com.sdc.api.services.CombustivelService;
+import com.sdc.api.response.Response;
 
 @RestController
 @RequestMapping("/api/combustivel")
@@ -26,12 +27,12 @@ public class CombustivelController {
 	private CombustivelService combustivelService;
 
 	@GetMapping(value = "/tipo/{tipo}")
-	public /* ResponseEntity<(Combustivel> */ void buscarPorTipo(@PathVariable("tipo") int tipo) {
+	public /* ResponseEntity<Response<Combustivel>> */ void buscarPorTipo(@PathVariable("tipo") int tipo) {
 
 	}
 
 	@PostMapping
-	public /* ResponseEntity<(Combustivel> */ void salvar(@RequestBody Combustivel combustivel) {
+	public /* ResponseEntity<Response<Combustivel>> */ void salvar(@RequestBody Combustivel combustivel) {
 
 	}
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sdc.api.entities.Usuario;
 import com.sdc.api.services.UsuarioService;
+import com.sdc.api.response.Response;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -26,17 +27,17 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	 
 	@GetMapping(value = "/{id}")
-	public /*ResponseEntity<Usuario>*/ void buscarPorId(@PathVariable("id") int id) {
+	public /* ResponseEntity<Response<Usuario>> */ void buscarPorId(@PathVariable("id") int id) {
 		log.info("Controller: buscando um usuário com o id: {}", id);
 	
 	}
 	 
 	@GetMapping(value = "/cpf/{cpf}")
-	public /*ResponseEntity<Usuario>*/ void buscarPorCpf(@PathVariable("cpf") String cpf) {
+	public /* ResponseEntity<Response<Usuario>> */ void buscarPorCpf(@PathVariable("cpf") String cpf) {
 		log.info("Controller: buscando um usuário com o cpf: {}", cpf);
 	}
 	
 	@PostMapping
-	public /*ResponseEntity<Usuario>*/ void salvar(@RequestBody Usuario usuario) {
+	public /* ResponseEntity<Response<Usuario>> */ void salvar(@RequestBody Usuario usuario) {
 	}
 }

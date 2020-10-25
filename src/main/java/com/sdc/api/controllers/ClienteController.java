@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sdc.api.entities.Cliente;
 import com.sdc.api.services.ClienteService;
+import com.sdc.api.response.Response;
 
 @RestController
 @RequestMapping("/api/cliente")
@@ -26,22 +27,22 @@ public class ClienteController {
 	private ClienteService clienteService;
 
 	@GetMapping(value = "/{id}")
-	public /* ResponseEntity<Cliente> */ void buscarPorId(@PathVariable("id") int id) {
+	public /* ResponseEntity<Response<Cliente>> */ void buscarPorId(@PathVariable("id") int id) {
 
 	}
 
 	@GetMapping(value = "/rg/{rg}")
-	public /* ResponseEntity<Cliente> */ void buscarPorRg(@PathVariable("rg") String rg) {
+	public /* ResponseEntity<Response<Cliente>> */ void buscarPorRg(@PathVariable("rg") String rg) {
 
 	}
 
 	@GetMapping(value = "/email/{email}")
-	public /* ResponseEntity<Cliente> */ void buscarPorEmail(@PathVariable("email") String email) {
+	public /* ResponseEntity<Response<Cliente>> */ void buscarPorEmail(@PathVariable("email") String email) {
 
 	}
 
 	@PostMapping
-	public /* ResponseEntity<Cliente> */ void salvar(@RequestBody Cliente cliente) {
+	public /* ResponseEntity<Response<Cliente>> */ void salvar(@RequestBody Cliente cliente) {
 
 	}
 }

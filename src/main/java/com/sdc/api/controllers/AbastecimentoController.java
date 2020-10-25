@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sdc.api.entities.Abastecimento;
 import com.sdc.api.services.AbastecimentoService;
+import com.sdc.api.response.Response;
 
 @RestController
 @RequestMapping("/api/abastecimento")
@@ -26,12 +27,12 @@ public class AbastecimentoController {
 	private AbastecimentoService abastecimentoService;
 
 	@GetMapping(value = "/cliente/{id}")
-	public /* ResponseEntity<(Abastecimento> */ void buscarPorClienteId(@PathVariable("id") int id) {
+	public /*  ResponseEntity<Response<Abastecimento>> */ void buscarPorClienteId(@PathVariable("id") int id) {
 
 	}
 
 	@PostMapping
-	public /* ResponseEntity<(Abastecimento> */ void salvar(@RequestBody Abastecimento abastecimento) {
+	public /* ResponseEntity<Response<Abastecimento>> */ void salvar(@RequestBody Abastecimento abastecimento) {
 
 	}
 }
