@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `Usuario` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `cpf` VARCHAR(11) NOT NULL,
   `senha` VARCHAR(255) NOT NULL,
@@ -18,6 +18,23 @@ CREATE TABLE IF NOT EXISTS `Cliente` (
   CONSTRAINT `fk_Cliente_Usuario`
     FOREIGN KEY (`usuario_id`)
     REFERENCES `Usuario` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `Endereco` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `rua` VARCHAR(255) NOT NULL,
+  `numero` INT NOT NULL,
+  `cidade` VARCHAR(100) NOT NULL,
+  `uf` VARCHAR(2) NOT NULL,
+  `cliente_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Endereco_Cliente1_idx` (`cliente_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Endereco_Cliente1`
+    FOREIGN KEY (`cliente_id`)
+    REFERENCES `Cliente` (`usuario_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
