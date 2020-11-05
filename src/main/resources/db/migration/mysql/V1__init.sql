@@ -1,20 +1,25 @@
 CREATE TABLE IF NOT EXISTS `Usuario` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NOT NULL,
+  `nome` VARCHAR(255) NULL,
   `cpf` VARCHAR(11) NOT NULL,
   `senha` VARCHAR(255) NOT NULL,
   `tipo` INT NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS `Cliente` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `sexo` VARCHAR(1) NOT NULL,
   `data_Nascimento` DATE NOT NULL,
   `rg` VARCHAR(9) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
   `usuario_id` INT NOT NULL,
-  PRIMARY KEY (`usuario_id`),
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `rg_UNIQUE` (`rg` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  INDEX `fk_Cliente_Usuario_idx` (`usuario_id` ASC) VISIBLE,
   CONSTRAINT `fk_Cliente_Usuario`
     FOREIGN KEY (`usuario_id`)
     REFERENCES `Usuario` (`id`)
@@ -34,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `Endereco` (
   INDEX `fk_Endereco_Cliente1_idx` (`cliente_id` ASC) VISIBLE,
   CONSTRAINT `fk_Endereco_Cliente1`
     FOREIGN KEY (`cliente_id`)
-    REFERENCES `Cliente` (`usuario_id`)
+    REFERENCES `Cliente` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -50,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `Cartao` (
   INDEX `fk_Cartao_Cliente1_idx` (`cliente_id` ASC) VISIBLE,
   CONSTRAINT `fk_Cartao_Cliente1`
     FOREIGN KEY (`cliente_id`)
-    REFERENCES `Cliente` (`usuario_id`)
+    REFERENCES `Cliente` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -72,19 +77,19 @@ CREATE TABLE IF NOT EXISTS `Abastecimento` (
   `confirmacao_Abastecimento` TINYINT NOT NULL,
   `data_Validade` DATE NOT NULL,
   `placa` VARCHAR(8) NOT NULL,
-  `cartao_id` INT NOT NULL,
   `combustivel_id` INT NOT NULL,
+  `cartao_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Abastecimento_Cartao1_idx` (`cartao_id` ASC) VISIBLE,
   INDEX `fk_Abastecimento_Combustivel1_idx` (`combustivel_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Abastecimento_Cartao1`
-    FOREIGN KEY (`cartao_id`)
-    REFERENCES `Cartao` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_Abastecimento_Cartao1_idx` (`cartao_id` ASC) VISIBLE,
   CONSTRAINT `fk_Abastecimento_Combustivel1`
     FOREIGN KEY (`combustivel_id`)
     REFERENCES `Combustivel` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Abastecimento_Cartao1`
+    FOREIGN KEY (`cartao_id`)
+    REFERENCES `Cartao` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

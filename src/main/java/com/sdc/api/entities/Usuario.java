@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -40,7 +41,7 @@ public class Usuario {
 
 	@Column(name = "tipo", nullable = false, length = 1)
 	private int tipo;
-
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "Usuario_Regra", joinColumns = { @JoinColumn(name = "usuario_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "regra_id") })
@@ -59,7 +60,7 @@ public class Usuario {
 	}
 
 	public void setNome(String nome) {
-		this.cpf = nome;
+		this.nome = nome;
 	}
 	
 	public String getCpf() {
@@ -85,6 +86,7 @@ public class Usuario {
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
+
 
 	public List<Regra> getRegras() {
 		return regras;

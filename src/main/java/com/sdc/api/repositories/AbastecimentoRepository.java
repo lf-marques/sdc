@@ -8,6 +8,6 @@ import com.sdc.api.entities.Abastecimento;
 
 public interface AbastecimentoRepository extends JpaRepository<Abastecimento, Integer> {
 	@Query("SELECT abast FROM Abastecimento abast "
-			+ "WHERE abast.cartao.cliente.usuario.id = :clienteId")
+			+ "WHERE abast.cartao.cliente.id = :clienteId")
    	List<Abastecimento> findByClienteId(@Param("clienteId") int clienteId);
 }

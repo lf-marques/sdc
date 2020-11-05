@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.sdc.api.entities.Regra;
 import com.sdc.api.entities.Usuario;
@@ -59,31 +60,37 @@ public class UsuarioService {
 
 	public Optional<Usuario> verificarCredenciais(String cpf) throws ConsistenciaException {
 		log.info("Service: criando credenciais para o usuário de cpf: '{}'", cpf);
+		
 		Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findByCpf(cpf));
+
+		log.info("Service: passou");
 		if (!usuario.isPresent()) {
 			log.info("Service: Nenhum usuário ativo com cpf: {} foi encontrado", cpf);
 			throw new ConsistenciaException("Nenhum usuário ativo com cpf: {} foi encontrado", cpf);
 		}
 		usuario.get().setRegras(
-				usuario.get().getRegras().stream().filter(r -> r.getAtivo() == true).collect(Collectors.toList()));
+				usuario.get().getRegras().stream().filter(r -> r.getAtivo() == true)
+				.collect(Collectors.toList()));
+		
 		return usuario;
 	}
 
 	public Usuario salvar(Usuario usuario) throws ConsistenciaException {
 		log.info("Service: salvando o usuario: {}", usuario);
+		
 		// Se foi informando ID na DTO, é porque trata-se de uma ALTERAÇÃO
 		if (usuario.getId() > 0) {
 			// Verificar se o ID existe na base
 			Optional<Usuario> usr = buscarPorId(usuario.getId());
+			
 			// Setando a senha do objeto usuário com a mesma senha encontarda na base.
 			// Se não fizermos isso, a senha fica em branco.
 			usuario.setSenha(usr.get().getSenha());
 
 		} else {
-			// Se NÃO foi informando ID na DTO, é porque trata-se de uma INCLUSÃO
-			// Neste caso, podemos setar uma senha incial igual ao CPF (provisória)
-			usuario.setSenha(SenhaUtils.gerarHash(usuario.getCpf()));
+			usuario.setSenha(SenhaUtils.gerarHash(usuario.getSenha()));
 		}
+		
 		// Carregando as regras definidas para o usuário, caso existam
 		if (usuario.getRegras() != null) {
 			List<Regra> aux = new ArrayList<Regra>(usuario.getRegras().size());

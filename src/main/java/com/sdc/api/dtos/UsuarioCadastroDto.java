@@ -1,13 +1,19 @@
 package com.sdc.api.dtos;
 
 import java.util.List;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.sun.istack.NotNull;
 
-public class UsuarioDto {
+public class UsuarioCadastroDto {
+
+	public UsuarioCadastroDto() {
+		this.cliente = new ClienteDto();
+	}
 	
 	private String id;
 
@@ -19,11 +25,19 @@ public class UsuarioDto {
 	@CPF(message = "CPF inválido.")
 	private String cpf;
 
+	@NotEmpty(message = "Senha não pode ser vazia.")
+	@Length(min = 5, message = "Senha deve conter no minimo 8 caracteres.")
+	private String senha;
+	
 	@NotEmpty(message = "Ativo não pode ser vazio.")
 	private String ativo;
 
-	@NotEmpty
+	//@NotEmpty
 	private List<RegraDto> regras;
+	
+	@Valid
+	@NotNull
+	private ClienteDto cliente;
 
 	public String getId() {
 		return id;
@@ -49,6 +63,14 @@ public class UsuarioDto {
 		this.cpf = cpf;
 	}
 	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public String getAtivo() {
 		return ativo;
 	}
@@ -64,13 +86,22 @@ public class UsuarioDto {
 	public void setRegras(List<RegraDto> regras) {
 		this.regras = regras;
 	}
+	
+	public ClienteDto getCliente() {
+		return this.cliente;
+	}
+	
+	public void setCliente(ClienteDto cliente) {
+		this.cliente = cliente;
+	}
 
 	@Override
 	public String toString() {
 		return "Usuario[id=" + id + "," 
 				+ "nome=" + nome + "," 
-				+ "cpf=" + cpf + ","
-				+ "ativo=" + ativo +"]";
+				+ "cpf=" + cpf + "," 
+				+ "ativo=" + ativo + "," 
+				+ cliente.toString() + "]";
 	}
 
 }

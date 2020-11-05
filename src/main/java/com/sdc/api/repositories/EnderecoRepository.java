@@ -8,10 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sdc.api.entities.Cartao;
-import com.sdc.api.entities.Cliente;
+import com.sdc.api.entities.Endereco;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
-	@Transactional(readOnly = true)
-	Optional<Cliente> findByRg(String rg);
+public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
+	@Query("SELECT ender FROM Endereco ender WHERE ender.cliente.id = :clienteId")
+   	List<Endereco> findByClienteId(@Param("clienteId") int clienteId);
 }

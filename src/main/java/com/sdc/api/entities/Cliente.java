@@ -25,8 +25,8 @@ public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id_usuario", nullable = false)
-	private int idUsuario;
+	@Column(name = "id", nullable = false)
+	private int id;
 	
 	@Column(name = "sexo", nullable = false, length = 1)
 	private String sexo;
@@ -46,6 +46,19 @@ public class Cliente implements Serializable {
    	@JsonManagedReference
    	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    	private List<Cartao> cartoes;
+   	
+   	@JsonManagedReference
+   	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   	private List<Endereco> enderecos;
+   	
+   	
+   	public int getId() {
+   		return this.id;
+   	}
+   	
+   	public void setId(int id) {
+   		this.id = id;
+   	}
    	
    	public String getSexo() {
    		return this.sexo;
@@ -94,4 +107,21 @@ public class Cliente implements Serializable {
    	public void setCartoes(List<Cartao> cartoes) {
    		this.cartoes = cartoes;
    	}
+
+   	public List<Endereco> getEnderecos() {
+   		return this.enderecos;
+   	}
+   	
+   	public void setEnderecos(List<Endereco> enderecos) {
+   		this.enderecos = enderecos;
+   	}
+
+	@Override
+	public String toString() {
+		return "Cliente[id=" + id + "," 
+	            + "sexo=" + sexo + "," 
+				+ "dataNascimento=" + dataNascimento + ","
+				+ "rg=" + rg + ","
+			    + "email=" + email + "]";
+	}
 }
