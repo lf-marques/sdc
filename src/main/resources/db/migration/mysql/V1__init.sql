@@ -64,9 +64,11 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `Combustivel` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `tipo` INT NOT NULL,
+  `titulo` VARCHAR(50) NOT NULL,
   `valor` DOUBLE NOT NULL,
   `data_Atualizacao` DATE NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `tipo_UNIQUE` (`tipo` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 

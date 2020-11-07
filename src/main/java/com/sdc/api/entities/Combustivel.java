@@ -22,6 +22,9 @@ public class Combustivel {
    	@Column(name = "tipo", nullable = false)
    	private int tipo;
 
+   	@Column(name = "titulo", nullable = false)
+   	private String titulo;
+   	
    	@Column(name = "valor", nullable = false)
    	private double valor;
 
@@ -36,6 +39,14 @@ public class Combustivel {
    		this.id = id;
    	}
    	
+   	public String getTitulo() {
+   		return this.titulo;
+   	}
+   	
+   	public void setTitulo(String titulo) {
+   		this.titulo = titulo;
+   	}
+   	
    	public int getTipo() {
    		return this.tipo;
    	}
@@ -43,4 +54,28 @@ public class Combustivel {
    	public void setTipo(int tipo) {
    		this.tipo = tipo;
    	}
+   	
+   	public Double getValor() {
+   		return this.valor;
+   	}
+   	
+   	public void setValor(Double valor) {
+   		this.valor = valor;
+   	}
+   	
+   	public Date getDataAtualizacao() {
+   		return this.dataAtualizacao;
+   	}
+   	
+   	public void setDataAtualizacao (Date dataAtualizacao) {
+   		this.dataAtualizacao = dataAtualizacao;
+   	}
+
+	@Override
+	public String toString() {
+		return "Combustivel[id=" + id + "," 
+	            + "titulo=" + titulo + "," 
+				+ "tipo=" + tipo + ","
+				+ "valor=" + valor + "]";
+	}
 }

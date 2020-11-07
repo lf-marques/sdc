@@ -3,6 +3,7 @@ package com.sdc.api.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,11 +13,13 @@ import com.sdc.api.dtos.CartaoDto;
 import com.sdc.api.entities.Cartao;
 import com.sdc.api.controllers.UsuarioController;
 import com.sdc.api.dtos.ClienteDto;
+import com.sdc.api.dtos.CombustivelDto;
 import com.sdc.api.dtos.EnderecoDto;
 import com.sdc.api.dtos.UsuarioCadastroDto;
 import com.sdc.api.dtos.UsuarioDto;
 import com.sdc.api.entities.Usuario;
 import com.sdc.api.entities.Cliente;
+import com.sdc.api.entities.Combustivel;
 import com.sdc.api.entities.Endereco;
 
 public class ConversaoUtils {
@@ -182,5 +185,33 @@ public class ConversaoUtils {
 		}
 
 		return clienteDto;
+	}
+	
+	public static Combustivel Converter(CombustivelDto combustivelDto) throws ParseException {
+
+		Combustivel combustivel = new Combustivel();
+
+		if (combustivelDto.getId( )!= null && combustivelDto.getId() != "")
+			combustivel.setId(Integer.parseInt(combustivelDto.getId()));
+
+		combustivel.setTitulo(combustivelDto.getTitulo());
+		combustivel.setTipo(Integer.parseInt(combustivelDto.getTipo()));
+		combustivel.setValor(Double.valueOf(combustivelDto.getValor()));
+     	
+		return combustivel;
+	}
+	
+	public static CombustivelDto Converter(Combustivel combustivel) {
+
+		CombustivelDto combustivelDto = new CombustivelDto();
+		
+		if(combustivel.getId() > 0) 
+			combustivelDto.setId(String.valueOf(combustivel.getId()));
+
+		combustivelDto.setTitulo(combustivel.getTitulo());
+		combustivelDto.setTipo(String.valueOf(combustivel.getTipo()));
+		combustivelDto.setValor(String.valueOf(combustivel.getValor()));
+
+		return combustivelDto;
 	}
 }
