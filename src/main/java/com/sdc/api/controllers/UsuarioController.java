@@ -98,13 +98,8 @@ public class UsuarioController {
 				return ResponseEntity.badRequest().body(response);
 			}
 			
-			// Converte o objeto usuarioCadastroDto para um objeto do tipo Usuario
 			Usuario usuario = ConversaoUtils.Converter(usuarioCadastroDto);
-			
-			// Converte o objeto usuarioCadastroDto para um objeto do tipo Cliente
 			Cliente cliente = ConversaoUtils.ConverterUsuarioCliente(usuarioCadastroDto);
-			
-			//Converte o objeto usuarioCadastroDto para um objeto do tipo Endereco
 			Endereco endereco = ConversaoUtils.ConverterEndereco(usuarioCadastroDto);
 			
 			//Salvando o Usuário
@@ -116,10 +111,12 @@ public class UsuarioController {
 				Cliente clientePersistido = this.clienteService.salvar(cliente);
 				
 				if(clientePersistido.getId() > 0 || clientePersistido.getRg() != null) {
+					//salvando o endereço
 					this.enderecoService.salvar(endereco);
 				}
 			}
 			
+			response.setMensagem("Cadastro realizado com sucesso!");
 			return ResponseEntity.ok(response);
 		
 		} catch (ConsistenciaException e) {

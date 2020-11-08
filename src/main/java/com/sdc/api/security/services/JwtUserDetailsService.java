@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.sdc.api.entities.Usuario;
 import com.sdc.api.security.JwtUserFactory;
 import com.sdc.api.services.UsuarioService;
-/* import com.sdc.api.utils.ConsistenciaException; */
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

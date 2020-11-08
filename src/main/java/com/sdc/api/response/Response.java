@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Response<T> {
 	private T dados;
+	private String mensagem;
 	private List<String> erros;
 
 	public Response() {
@@ -22,6 +23,14 @@ public class Response<T> {
 
 	public void setDados(T dados) {
 		this.dados = dados;
+	}
+	
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+	
+	public String getMensagem() {
+		return mensagem;
 	}
 
 	public List<String> getErros() {

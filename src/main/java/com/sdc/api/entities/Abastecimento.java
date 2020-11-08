@@ -30,8 +30,8 @@ public class Abastecimento {
 	@Column(name = "confirmacao_Abastecimento", nullable = false)
 	private int confirmacaoAbastecimento;
 	
-	@Column(name = "data_Validade", nullable = false)
-	private Date dataValidade;
+	@Column(name = "data_Criacao", nullable = false)
+	private Date dataCriacao;
 	
 	@Column(name = "placa", nullable = false, length = 8)
 	private String placa;
@@ -43,7 +43,7 @@ public class Abastecimento {
    	private Combustivel combustivel;
 	
 	public int getId() {
-		return this.id;
+		return id;
 	}
 	
 	public void setId(int id) {
@@ -51,7 +51,7 @@ public class Abastecimento {
 	}
 	
 	public double getValor() {
-		return this.valor;
+		return valor;
 	}
 	
 	public void setValor(Double valor) {
@@ -59,7 +59,7 @@ public class Abastecimento {
 	}
 	
 	public int getConfirmacaoPagamento() {
-		return this.confirmacaoPagamento;
+		return confirmacaoPagamento;
 	}
 	
 	public void setConfirmacaoPagamento(int confirmacaoPagamento) {
@@ -67,10 +67,42 @@ public class Abastecimento {
 	}
 
 	public int getConfirmacaoAbastecimento() {
-		return this.confirmacaoAbastecimento;
+		return confirmacaoAbastecimento;
 	}
 	
 	public void setConfirmacaoAbastecimento(int confirmacaoAbastecimento) {
 		this.confirmacaoAbastecimento = confirmacaoAbastecimento;
+	}
+	
+	public String getPlaca() {
+		return placa;
+	}
+	
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
+	
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+	
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+	
+	public Combustivel getCombustivel() {
+		return combustivel;
+	}
+	
+	public void setCombustivel(Combustivel combustivel) {
+		this.combustivel = combustivel;
+	}
+	
+	public Cartao getCartao() {
+		return cartao;
+	}
+	
+	public void setCartao(Cartao cartao) {
+		this.cartao = cartao;
 	}
 }

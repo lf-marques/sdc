@@ -9,7 +9,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sdc.api.dtos.AbastecimentoDto;
 import com.sdc.api.dtos.CartaoDto;
+import com.sdc.api.entities.Abastecimento;
 import com.sdc.api.entities.Cartao;
 import com.sdc.api.controllers.UsuarioController;
 import com.sdc.api.dtos.ClienteDto;
@@ -213,5 +215,45 @@ public class ConversaoUtils {
 		combustivelDto.setValor(String.valueOf(combustivel.getValor()));
 
 		return combustivelDto;
+	}
+	
+	public static Abastecimento Converter(AbastecimentoDto abastecimentoDto) throws ParseException {
+
+		Abastecimento abastecimento = new Abastecimento();
+		Combustivel combustivel 	= new Combustivel();
+		Cartao cartao 				= new Cartao();
+
+		if (abastecimentoDto.getId( )!= null && abastecimentoDto.getId() != "")
+			abastecimento.setId(Integer.parseInt(abastecimentoDto.getId()));
+
+		abastecimento.setConfirmacaoAbastecimento(Integer.parseInt(abastecimentoDto.getConfirmacaoAbastecimento()));
+		abastecimento.setConfirmacaoPagamento(Integer.parseInt(abastecimentoDto.getConfirmacaoPagamento()));
+		abastecimento.setValor(Double.parseDouble(abastecimentoDto.getValor()));
+		abastecimento.setPlaca(abastecimentoDto.getPlaca());
+		
+		combustivel.setId(Integer.parseInt(abastecimentoDto.getCombustivelId()));
+		cartao.setId(Integer.parseInt(abastecimentoDto.getCartaoId()));
+		
+		abastecimento.setCombustivel(combustivel);
+		abastecimento.setCartao(cartao);
+     	
+		return abastecimento;
+	}
+	
+	public static AbastecimentoDto Converter(Abastecimento abastecimento) {
+
+		AbastecimentoDto abastecimentoDto = new AbastecimentoDto();
+		
+		if(abastecimento.getId() > 0) 
+			abastecimentoDto.setId(String.valueOf(abastecimento.getId()));
+
+		abastecimentoDto.setConfirmacaoAbastecimento(String.valueOf(abastecimento.getConfirmacaoAbastecimento()));
+		abastecimentoDto.setConfirmacaoPagamento(String.valueOf(abastecimento.getConfirmacaoPagamento()));
+		abastecimentoDto.setValor(String.valueOf(abastecimento.getValor()));
+		abastecimentoDto.setPlaca(abastecimento.getPlaca());
+		abastecimentoDto.setCombustivelId(String.valueOf(abastecimento.getCombustivel().getId()));
+		abastecimentoDto.setCartaoId(String.valueOf(abastecimento.getCartao().getId()));
+
+		return abastecimentoDto;
 	}
 }

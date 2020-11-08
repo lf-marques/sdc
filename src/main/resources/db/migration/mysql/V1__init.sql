@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `Abastecimento` (
   `valor` DOUBLE NOT NULL,
   `confirmacao_Pagamento` TINYINT NOT NULL,
   `confirmacao_Abastecimento` TINYINT NOT NULL,
-  `data_Validade` DATE NOT NULL,
+  `data_Criacao` DATE NOT NULL,
   `placa` VARCHAR(8) NOT NULL,
   `combustivel_id` INT NOT NULL,
   `cartao_id` INT NOT NULL,

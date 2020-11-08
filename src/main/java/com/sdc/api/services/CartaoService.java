@@ -1,5 +1,7 @@
 package com.sdc.api.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -56,6 +58,29 @@ public class CartaoService {
 		}
 
 		return cartoes;
+	}
+	
+	public void validar(int cartaoId) throws ConsistenciaException {
+		log.info("Service: Validando status do cartão de id: {} ", cartaoId);
+		Cartao cartao = cartaoRepository.findById(cartaoId).get();
+		String statusCartao = "";
+		
+		if(cartao.getId() > 0) {
+			if(cartao.getBloqueado() == 1) {
+				statusCartao = "O cartão se encontra bloqueado.";
+			}
+	     	
+	     	if(cartao.getDataValidade().before(new Date())) {
+	     		statusCartao = "O cartão se encontra vencido.";
+	     	}
+			
+	     	if(statusCartao.length() > 0) {
+	     		throw new ConsistenciaException("O cartão de número {} não permite finalizar o pagamento. "
+	        			+ "Mensagem de erro: {}", cartao.getNumero(), statusCartao);	
+	     	}
+		}else {
+			throw new ConsistenciaException("Validar cartao: Nenhum cartão de id {} foi encontrado.", cartao.getId());
+		}
 	}
 
 	public Cartao salvar(Cartao cartao) throws ConsistenciaException {
