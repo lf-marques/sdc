@@ -93,4 +93,14 @@ public class Endereco implements Serializable {
    	public void setCliente(Cliente cliente) {
    		this.cliente = cliente;
    	}
+   	
+   	@Override
+	public String toString() {
+		return "Endereco[id=" + id + "," 
+	            + "numero=" + numero + "," 
+				+ "rua=" + rua+ ","
+				+ "cidade=" + cidade + ","
+				+ "uf=" + uf + ","
+			    + "cliente=" + cliente.toString() + "]";
+   	}
 }

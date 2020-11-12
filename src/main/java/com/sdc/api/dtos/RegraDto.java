@@ -1,6 +1,9 @@
 package com.sdc.api.dtos;
 
+import javax.validation.constraints.NotEmpty;
+
 public class RegraDto {
+	@NotEmpty
 	private String nome;
 	private String descricao;
 	private boolean ativo;

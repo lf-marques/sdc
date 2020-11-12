@@ -81,4 +81,13 @@ public class Cartao implements Serializable {
    	public void setCliente(Cliente cliente) {
    		this.cliente= cliente;
    	}
+   	
+   	@Override
+	public String toString() {
+		return "Cartao[id=" + id + "," 
+	            + "numero=" + numero + "," 
+				+ "dataValidade=" + dataValidade+ ","
+				+ "bloqueado=" + bloqueado + ","
+			    + "cliente=" + cliente.toString() + "]";
+   	}
 }

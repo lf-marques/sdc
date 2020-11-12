@@ -105,4 +105,16 @@ public class Abastecimento {
 	public void setCartao(Cartao cartao) {
 		this.cartao = cartao;
 	}
+	
+	@Override
+	public String toString() {
+		return "Abastecimento[id=" + id + "," 
+	            + "valor=" + valor + "," 
+				+ "confirmacaoPagamento=" + confirmacaoPagamento+ ","
+				+ "confirmacaoAbastecimento=" + confirmacaoAbastecimento + ","
+				+ "dataCriacao=" + dataCriacao + ","
+				+ "placa=" + placa + ","
+				+ "cartao=" + cartao.toString() + ","
+			    + "combustivel=" + combustivel.toString() + "]";
+	}
 }

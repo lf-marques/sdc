@@ -82,7 +82,7 @@ public class UsuarioController {
 	 */
 	@PostMapping(value = "/registrar")
 	public ResponseEntity<Response<UsuarioCadastroDto>> salvarCadastro(@Valid @RequestBody UsuarioCadastroDto usuarioCadastroDto,BindingResult result) {
-		
+
 		Response<UsuarioCadastroDto> response = new Response<UsuarioCadastroDto>();
 		
 		try {

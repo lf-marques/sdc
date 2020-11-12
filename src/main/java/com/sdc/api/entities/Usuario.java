@@ -95,4 +95,13 @@ public class Usuario {
 	public void setRegras(List<Regra> regras) {
 		this.regras = regras;
 	}
+	
+	@Override
+	public String toString() {
+		return "Usuario[id=" + id + "," 
+	            + "nome=" + nome + "," 
+				+ "cpf=" + cpf+ ","
+				+ "tipo=" + tipo + ","
+			    + "regras=" + regras.toString() + "]";
+   	}
 }

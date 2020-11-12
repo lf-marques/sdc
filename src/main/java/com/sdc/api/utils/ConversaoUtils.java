@@ -13,6 +13,8 @@ import com.sdc.api.dtos.AbastecimentoDto;
 import com.sdc.api.dtos.CartaoDto;
 import com.sdc.api.entities.Abastecimento;
 import com.sdc.api.entities.Cartao;
+import com.sdc.api.dtos.RegraDto;
+import com.sdc.api.entities.Regra;
 import com.sdc.api.controllers.UsuarioController;
 import com.sdc.api.dtos.ClienteDto;
 import com.sdc.api.dtos.CombustivelDto;
@@ -38,6 +40,21 @@ public class ConversaoUtils {
 		usuario.setCpf(usuarioCadastroDto.getCpf());
 		usuario.setNome(usuarioCadastroDto.getNome());
 		usuario.setSenha(usuarioCadastroDto.getSenha());
+		
+		if (usuarioCadastroDto.getRegras() != null && usuarioCadastroDto.getRegras().size() > 0) {
+
+			usuario.setRegras(new ArrayList<Regra>());
+
+			for (RegraDto regraDto : usuarioCadastroDto.getRegras()) {
+
+				Regra regra = new Regra();
+				regra.setNome(regraDto.getNome());
+
+				usuario.getRegras().add(regra);
+
+			}
+
+		}
 		
 		return usuario;
 	}
@@ -81,6 +98,24 @@ public class ConversaoUtils {
 		usuarioCadastroDto.setCpf(usuario.getCpf());
 		usuarioCadastroDto.setNome(usuario.getNome());
 		usuarioCadastroDto.setSenha(usuario.getSenha());
+		
+		if (usuario.getRegras() != null) {
+
+			usuarioCadastroDto.setRegras(new ArrayList<RegraDto>());
+
+			for (int i = 0; i < usuario.getRegras().size(); i++) {
+
+				RegraDto regraDto = new RegraDto();
+
+				regraDto.setNome(usuario.getRegras().get(i).getNome());
+				regraDto.setDescricao(usuario.getRegras().get(i).getDescricao());
+				regraDto.setAtivo(usuario.getRegras().get(i).getAtivo());
+
+				usuarioCadastroDto.getRegras().add(regraDto);
+
+			}
+
+		}
 		
 		return usuarioCadastroDto;
 	}

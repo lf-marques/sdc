@@ -1,5 +1,6 @@
 package com.sdc.api.dtos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,12 +8,14 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.sdc.api.dtos.RegraDto;
 import com.sun.istack.NotNull;
 
 public class UsuarioCadastroDto {
-
+	
 	public UsuarioCadastroDto() {
 		this.cliente = new ClienteDto();
+		this.regras = new ArrayList<RegraDto>();
 	}
 	
 	private String id;
@@ -29,10 +32,14 @@ public class UsuarioCadastroDto {
 	@Length(min = 5, message = "Senha deve conter no minimo 8 caracteres.")
 	private String senha;
 	
+	@NotEmpty(message = "Tipo não pode ser vazio.")
+	private String tipo;
+	
 	@NotEmpty(message = "Ativo não pode ser vazio.")
 	private String ativo;
 
-	//@NotEmpty
+	@Valid
+	@NotNull
 	private List<RegraDto> regras;
 	
 	@Valid
@@ -70,6 +77,14 @@ public class UsuarioCadastroDto {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
 	public String getAtivo() {
 		return ativo;
@@ -100,6 +115,7 @@ public class UsuarioCadastroDto {
 		return "Usuario[id=" + id + "," 
 				+ "nome=" + nome + "," 
 				+ "cpf=" + cpf + "," 
+				+ "tipo=" + tipo + "," 
 				+ "ativo=" + ativo + "," 
 				+ cliente.toString() + "]";
 	}
