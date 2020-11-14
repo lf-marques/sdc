@@ -1,6 +1,9 @@
 package com.sdc.api.dtos;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
@@ -8,7 +11,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import com.sun.istack.NotNull;
 
 public class UsuarioDto {
-	
+
 	private String id;
 
 	@NotEmpty(message = "Nome não pode ser vazio.")
@@ -19,10 +22,10 @@ public class UsuarioDto {
 	@CPF(message = "CPF inválido.")
 	private String cpf;
 
-	@NotEmpty(message = "Ativo não pode ser vazio.")
-	private String ativo;
-
-	@NotEmpty
+	@NotEmpty(message = "Tipo não pode ser vazio.")
+	@Length(min = 1, max = 1, message = "Tipo: 0/1")
+	private String tipo;
+	
 	private List<RegraDto> regras;
 
 	public String getId() {
@@ -49,12 +52,12 @@ public class UsuarioDto {
 		this.cpf = cpf;
 	}
 	
-	public String getAtivo() {
-		return ativo;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setAtivo(String ativo) {
-		this.ativo = ativo;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public List<RegraDto> getRegras() {
@@ -69,8 +72,7 @@ public class UsuarioDto {
 	public String toString() {
 		return "Usuario[id=" + id + "," 
 				+ "nome=" + nome + "," 
-				+ "cpf=" + cpf + ","
-				+ "ativo=" + ativo +"]";
+				+ "cpf=" + cpf + "]";
 	}
 
 }

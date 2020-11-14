@@ -37,10 +37,10 @@ import com.sdc.api.response.Response;
 public class UsuarioController {
 
 	private static final Logger log = LoggerFactory.getLogger(UsuarioController.class);
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
 	private ClienteService clienteService;
 
@@ -54,9 +54,8 @@ public class UsuarioController {
 	 * @return Dados do usuário
 	 */
 	@GetMapping(value = "/{id}")
-	@PreAuthorize("hasAnyRole('ADM_USUARIO')")
-	public /*ResponseEntity<Response<UsuarioDto>>*/ void buscarPorId(@PathVariable("id") int id) {
-		/*Response<UsuarioDto> response = new Response<UsuarioDto>();
+	public ResponseEntity<Response<UsuarioDto>> buscarPorId(@PathVariable("id") int id) {
+		Response<UsuarioDto> response = new Response<UsuarioDto>();
 
 		try {
 			log.info("Controller: buscando usuario com id: {}", id);
@@ -71,66 +70,67 @@ public class UsuarioController {
 			log.error("Controller: Ocorreu um erro na aplicação: {}", e.getMessage());
 			response.adicionarErro("Ocorreu um erro na aplicação: {}", e.getMessage());
 			return ResponseEntity.status(500).body(response);
-		}*/
+		}
 	}
-	
+
 	/**
 	 * Realiza o cadastro de um usuário.
 	 *
 	 * @param Dados de entrada do usuário
 	 * @return Dados do usuario cadastrado
 	 */
-	@PostMapping(value = "/registrar")
-	public ResponseEntity<Response<UsuarioCadastroDto>> salvarCadastro(@Valid @RequestBody UsuarioCadastroDto usuarioCadastroDto,BindingResult result) {
+	@PostMapping(value = "/registrarCliente")
+	public ResponseEntity<Response<UsuarioCadastroDto>> salvarCadastro(
+			@Valid @RequestBody UsuarioCadastroDto usuarioCadastroDto, BindingResult result) {
 
 		Response<UsuarioCadastroDto> response = new Response<UsuarioCadastroDto>();
-		
+
 		try {
 			log.info("Controller: salvando o usuario: {}", usuarioCadastroDto.toString());
-			
+
 			// Verificando se todos os campos da DTO foram preenchidos
 			if (result.hasErrors()) {
 				for (int i = 0; i < result.getErrorCount(); i++) {
 					response.adicionarErro(result.getAllErrors().get(i).getDefaultMessage());
 				}
-				
+
 				log.info("Controller: Os campos obrigatórios não foram preenchidos");
 				return ResponseEntity.badRequest().body(response);
 			}
-			
+
 			Usuario usuario = ConversaoUtils.Converter(usuarioCadastroDto);
 			Cliente cliente = ConversaoUtils.ConverterUsuarioCliente(usuarioCadastroDto);
 			Endereco endereco = ConversaoUtils.ConverterEndereco(usuarioCadastroDto);
-			
-			//Salvando o Usuário
+
+			// Salvando o Usuário
 			Usuario usuarioPersistido = this.usuarioService.salvar(usuario);
-			
+
 			// Salvando o cliente
-			if(usuarioPersistido.getId() > 0 ) {
+			if (usuarioPersistido.getId() > 0) {
 				cliente.getUsuario().setId(usuarioPersistido.getId());
 				Cliente clientePersistido = this.clienteService.salvar(cliente);
-				
-				if(clientePersistido.getId() > 0 || clientePersistido.getRg() != null) {
-					//salvando o endereço
+
+				if (clientePersistido.getId() > 0 || clientePersistido.getRg() != null) {
+					// salvando o endereço
 					this.enderecoService.salvar(endereco);
 				}
 			}
-			
+
 			response.setMensagem("Cadastro realizado com sucesso!");
 			return ResponseEntity.ok(response);
-		
+
 		} catch (ConsistenciaException e) {
 			log.info("Controller: Inconsistência de dados: {}", e.getMessage());
-			
+
 			response.adicionarErro(e.getMensagem());
-			
+
 			return ResponseEntity.badRequest().body(response);
-			
+
 		} catch (Exception e) {
 			log.error("Controller: Ocorreu um erro na aplicação: {}", e.getMessage());
-			
+
 			response.adicionarErro("Ocorreu um erro na aplicação: {}", e.getMessage());
-			
+
 			return ResponseEntity.status(500).body(response);
 		}
 	}
@@ -142,38 +142,41 @@ public class UsuarioController {
 	 * @return Dados do usuario persistido
 	 */
 	@PostMapping(value = "/salvar")
-	public void /*ResponseEntity<Response<UsuarioDto>>*/ salvar(@Valid @RequestBody UsuarioDto usuarioDto,BindingResult result) {
-		/*Response<UsuarioDto> response = new Response<UsuarioDto>();
+	public ResponseEntity<Response<UsuarioDto>> salvar(@Valid @RequestBody UsuarioDto usuarioDto,
+			BindingResult result) {
+
+		Response<UsuarioDto> response = new Response<UsuarioDto>();
+
 		try {
 			log.info("Controller: salvando o usuario: {}", usuarioDto.toString());
-			
+
 			// Verificando se todos os campos da DTO foram preenchidos
 			if (result.hasErrors()) {
 				for (int i = 0; i < result.getErrorCount(); i++) {
 					response.adicionarErro(result.getAllErrors().get(i).getDefaultMessage());
 				}
-				
+
 				log.info("Controller: Os campos obrigatórios não foram preenchidos");
 				return ResponseEntity.badRequest().body(response);
 			}
-			
+
 			// Converte o objeto usuarioDto para um objeto do tipo Usuario (entidade)
 			Usuario usuario = ConversaoUtils.Converter(usuarioDto);
-			
+
 			// Salvando o usuário
 			response.setDados(ConversaoUtils.Converter(this.usuarioService.salvar(usuario)));
 			return ResponseEntity.ok(response);
 		} catch (ConsistenciaException e) {
 			log.info("Controller: Inconsistência de dados: {}", e.getMessage());
-			
+
 			response.adicionarErro(e.getMensagem());
 			return ResponseEntity.badRequest().body(response);
 		} catch (Exception e) {
 			log.error("Controller: Ocorreu um erro na aplicação: {}", e.getMessage());
-			
+
 			response.adicionarErro("Ocorreu um erro na aplicação: {}", e.getMessage());
 			return ResponseEntity.status(500).body(response);
-		}*/
+		}
 	}
 
 	/**
@@ -183,11 +186,13 @@ public class UsuarioController {
 	 * @return Dados do usuario persistido
 	 */
 	@PostMapping(value = "/senha")
-	public /*ResponseEntity<Response<SenhaDto>>*/ void alterarSenhaUsuario(@Valid @RequestBody SenhaDto senhaDto, BindingResult result) {
-		/*Response<SenhaDto> response = new Response<SenhaDto>();
+	public ResponseEntity<Response<SenhaDto>> alterarSenhaUsuario(@Valid @RequestBody SenhaDto senhaDto,
+			BindingResult result) {
+
+		Response<SenhaDto> response = new Response<SenhaDto>();
 		try {
-			log.info("Controller: alterando a senha do usuário: {}", senhaDto.getIdUsuario());
-			// Verificando se todos os campos da DTO foram preenchidos
+			log.info("Controller: alterando a senha do usuário: {}", senhaDto.getIdUsuario()); 
+			
 			if (result.hasErrors()) {
 				for (int i = 0; i < result.getErrorCount(); i++) {
 
@@ -195,21 +200,28 @@ public class UsuarioController {
 				}
 				log.info("Controller: Os campos obrigatórios não foram preenchidos");
 				return ResponseEntity.badRequest().body(response);
-			}
+			} 
+			
 			// Alterando a senha do usuário
-
 			this.usuarioService.alterarSenhaUsuario(senhaDto.getSenhaAtual(), senhaDto.getNovaSenha(),
 					Integer.parseInt(senhaDto.getIdUsuario()));
+			
 			response.setDados(senhaDto);
+			
 			return ResponseEntity.ok(response);
 		} catch (ConsistenciaException e) {
+			
 			log.info("Controller: Inconsistência de dados: {}", e.getMessage());
 			response.adicionarErro(e.getMensagem());
 			return ResponseEntity.badRequest().body(response);
+		
 		} catch (Exception e) {
+		
 			log.error("Controller: Ocorreu um erro na aplicação: {}", e.getMessage());
 			response.adicionarErro("Ocorreu um erro na aplicação: {}", e.getMessage());
 			return ResponseEntity.status(500).body(response);
-		}*/
+		
+		}
+
 	}
 }

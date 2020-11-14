@@ -34,9 +34,6 @@ public class UsuarioCadastroDto {
 	
 	@NotEmpty(message = "Tipo não pode ser vazio.")
 	private String tipo;
-	
-	@NotEmpty(message = "Ativo não pode ser vazio.")
-	private String ativo;
 
 	@Valid
 	@NotNull
@@ -86,14 +83,6 @@ public class UsuarioCadastroDto {
 		this.tipo = tipo;
 	}
 
-	public String getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(String ativo) {
-		this.ativo = ativo;
-	}
-
 	public List<RegraDto> getRegras() {
 		return regras;
 	}
@@ -116,7 +105,6 @@ public class UsuarioCadastroDto {
 				+ "nome=" + nome + "," 
 				+ "cpf=" + cpf + "," 
 				+ "tipo=" + tipo + "," 
-				+ "ativo=" + ativo + "," 
 				+ cliente.toString() + "]";
 	}
 

@@ -36,11 +36,6 @@ public class CartaoController {
 	@Autowired
 	private CartaoService cartaoService;
 
-	@GetMapping(value = "/numero/{numero}")
-	public /* ResponseEntity<Response<Cartao>> */ void buscarPorNumero(@PathVariable("numero") String numero) {
-
-	}
-
    	@PreAuthorize("hasAnyRole('CLIENTE')")
 	@GetMapping(value = "/cliente/{id}")
 	public ResponseEntity<Response<List<CartaoDto>>> buscarPorClienteId(@PathVariable("id") int id) {
