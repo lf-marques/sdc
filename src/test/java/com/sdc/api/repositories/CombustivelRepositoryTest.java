@@ -3,6 +3,7 @@ package com.sdc.api.repositories;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
+import java.util.Optional;
 
 import org.junit.After;
 import org.junit.Before;
@@ -47,8 +48,8 @@ public class CombustivelRepositoryTest {
 
 	@Test
 	public void findByTipo() {
-		Combustivel combustivel = combustivelRepository.findByTipo(combustivelTeste.getTipo());
-		assertEquals(combustivel.getTipo(), combustivelTeste.getTipo());
+		Optional<Combustivel> combustivel = combustivelRepository.findByTipo(combustivelTeste.getTipo());
+		assertEquals(combustivel.get().getTipo(), combustivelTeste.getTipo());
 	}
 
 }
