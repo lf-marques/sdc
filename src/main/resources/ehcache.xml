@@ -1,0 +1,7 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchemainstance" xsi:noNamespaceSchemaLocation="ehcache.xsd">
+	<cache 
+		name="cacheListaCombustiveis"
+		maxEntriesLocalHeap="200"
+		timeToLiveSeconds="3600"
+	></cache>
+</ehcache>

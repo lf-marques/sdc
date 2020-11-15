@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 
 import com.sdc.api.entities.Combustivel;
 import com.sdc.api.repositories.CombustivelRepository;
@@ -52,6 +54,7 @@ public class CombustivelService {
 		
 	}
 	
+	@Cacheable("cacheListaCombustiveis")
 	public Optional<List<Combustivel>> listar() throws ConsistenciaException {
 		log.info("Service: buscando todas os combustiveis");
 
