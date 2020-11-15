@@ -1,5 +1,6 @@
 package com.sdc.api.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -18,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sdc.api.dtos.ClienteDto;
 import com.sdc.api.dtos.CombustivelDto;
-import com.sdc.api.entities.Cliente;
 import com.sdc.api.entities.Combustivel;
 import com.sdc.api.services.CombustivelService;
 import com.sdc.api.utils.ConsistenciaException;
@@ -53,6 +52,34 @@ public class CombustivelController {
 			return ResponseEntity.badRequest().body(response);
 
 		} catch (Exception e) {
+			log.error("Controller: Ocorreu um erro na aplicação: {}", e.getMessage());
+			response.adicionarErro("Ocorreu um erro na aplicação: {}", e.getMessage());
+			return ResponseEntity.status(500).body(response);
+		}
+	}
+	
+	@GetMapping(value = "/listar")
+	public ResponseEntity<Response<List<CombustivelDto>>> listarCombustiveis() {
+
+		Response<List<CombustivelDto>> response = new Response<List<CombustivelDto>>();
+
+		try {
+			log.info("Controller: listando combustiveis...");
+			
+			Optional<List<Combustivel>> listaCombustiveis = combustivelService.listar();
+
+			response.setDados(ConversaoUtils.ConverterListaCombustivel(listaCombustiveis.get()));
+
+			return ResponseEntity.ok(response);
+
+		} catch (ConsistenciaException e) {
+
+			log.info("Controller: Inconsistência de dados: {}", e.getMessage());
+			response.adicionarErro(e.getMensagem());
+			return ResponseEntity.badRequest().body(response);
+
+		} catch (Exception e) {
+
 			log.error("Controller: Ocorreu um erro na aplicação: {}", e.getMessage());
 			response.adicionarErro("Ocorreu um erro na aplicação: {}", e.getMessage());
 			return ResponseEntity.status(500).body(response);

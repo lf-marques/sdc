@@ -169,6 +169,7 @@ public class ConversaoUtils {
 		usuario.setCpf(usuarioDto.getCpf());
 		usuario.setNome(usuarioDto.getNome());
 		usuario.setTipo(Integer.parseInt(usuarioDto.getTipo()));
+		usuario.setSenha(usuarioDto.getSenha());
 
 		if (usuarioDto.getRegras() != null) {
 
@@ -229,6 +230,17 @@ public class ConversaoUtils {
 
 		for (Cartao cartao : lista) {
 			lst.add(Converter(cartao));
+		}
+
+		return lst;
+	}
+	
+	public static List<CombustivelDto> ConverterListaCombustivel(List<Combustivel> lista) {
+
+		List<CombustivelDto> lst = new ArrayList<CombustivelDto>(lista.size());
+
+		for (Combustivel combustivel : lista) {
+			lst.add(Converter(combustivel));
 		}
 
 		return lst;

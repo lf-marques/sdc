@@ -26,6 +26,10 @@ public class UsuarioDto {
 	@Length(min = 1, max = 1, message = "Tipo: 0/1")
 	private String tipo;
 	
+	@NotEmpty(message = "Senha não pode ser vazia.")
+	@Length(min = 8, message = "Senha deve conter no minimo 8 caracteres.")
+	private String senha;
+	
 	private List<RegraDto> regras;
 
 	public String getId() {
@@ -58,6 +62,14 @@ public class UsuarioDto {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public List<RegraDto> getRegras() {

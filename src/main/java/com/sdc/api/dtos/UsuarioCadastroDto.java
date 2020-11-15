@@ -29,7 +29,7 @@ public class UsuarioCadastroDto {
 	private String cpf;
 
 	@NotEmpty(message = "Senha não pode ser vazia.")
-	@Length(min = 5, message = "Senha deve conter no minimo 8 caracteres.")
+	@Length(min = 8, message = "Senha deve conter no minimo 8 caracteres.")
 	private String senha;
 	
 	@NotEmpty(message = "Tipo não pode ser vazio.")
