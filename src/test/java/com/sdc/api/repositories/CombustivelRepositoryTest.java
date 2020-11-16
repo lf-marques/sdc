@@ -3,6 +3,7 @@ package com.sdc.api.repositories;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 import org.junit.After;
@@ -25,17 +26,21 @@ public class CombustivelRepositoryTest {
 
 	Combustivel combustivelTeste;
 
-	private void CriarClienteTestes() throws ParseException {
+	private void CriarCombustivelTestes() throws ParseException {
 
 		combustivelTeste = new Combustivel();
 
+		combustivelTeste.setId(1);
 		combustivelTeste.setTipo(1);
+		combustivelTeste.setDataAtualizacao(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2020"));
+		combustivelTeste.setTitulo("Gososa");
+		combustivelTeste.setValor(200.00);
 	}
 
 	@Before
 	public void setUp() throws Exception {
 
-		CriarClienteTestes();
+		CriarCombustivelTestes();
 		combustivelRepository.save(combustivelTeste);
 
 	}

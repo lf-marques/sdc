@@ -24,7 +24,7 @@ public class UsuarioRepositoryTest {
 
 	Usuario usuarioTeste;
 
-	private void CriarClienteTestes() throws ParseException {
+	private void CriarUsuarioTestes() throws ParseException {
 
 		usuarioTeste = new Usuario();
 
@@ -38,7 +38,7 @@ public class UsuarioRepositoryTest {
 	@Before
 	public void setUp() throws Exception {
 
-		CriarClienteTestes();
+		CriarUsuarioTestes();
 		usuarioRepository.save(usuarioTeste);
 
 	}

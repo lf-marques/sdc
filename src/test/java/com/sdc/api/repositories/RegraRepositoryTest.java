@@ -24,7 +24,7 @@ public class RegraRepositoryTest {
 
 	Regra regraTeste;
 
-	private void CriarClienteTestes() throws ParseException {
+	private void CriarRegraTestes() throws ParseException {
 
 		regraTeste = new Regra();
 
@@ -36,7 +36,7 @@ public class RegraRepositoryTest {
 	@Before
 	public void setUp() throws Exception {
 
-		CriarClienteTestes();
+		CriarRegraTestes();
 		regraRepository.save(regraTeste);
 
 	}
