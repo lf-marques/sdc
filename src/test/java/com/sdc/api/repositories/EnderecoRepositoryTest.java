@@ -27,13 +27,14 @@ public class EnderecoRepositoryTest {
 	EnderecoRepository enderecoRepository;
 	@Autowired
 	ClienteRepository clienteRepository;
-	
+
 	Endereco enderecoTeste;
 	Cliente clienteTeste;
+
 	private void CriarAbastecimentoTestes() throws ParseException {
 
 		clienteTeste = new Cliente();
-		
+
 		clienteTeste.setId(1);
 		clienteTeste.setRg("058870980");
 		clienteTeste.setSexo("M");
@@ -42,7 +43,7 @@ public class EnderecoRepositoryTest {
 
 		enderecoTeste = new Endereco();
 		List<Endereco> enderecos = new ArrayList<Endereco>();
-		
+
 		enderecoTeste.setId(1);
 		enderecoTeste.setCidade("Londrina");
 		enderecoTeste.setNumero(358);
@@ -50,7 +51,7 @@ public class EnderecoRepositoryTest {
 		enderecoTeste.setRua("Aquela la");
 		enderecos.add(enderecoTeste);
 		enderecoTeste.setCliente(clienteTeste);
-		
+
 		clienteTeste.setEnderecos(enderecos);
 
 	}
@@ -71,9 +72,11 @@ public class EnderecoRepositoryTest {
 		clienteRepository.deleteAll();
 
 	}
+
 	@Test
 	public void testFindByClienteId() {
 		List<Endereco> enderecos = enderecoRepository.findByClienteId(clienteTeste.getId());
 		assertTrue(!enderecos.isEmpty());
 	}
+
 }

@@ -28,14 +28,14 @@ public class CartaoRepositoryTest {
 	CartaoRepository cartaoRepository;
 	@Autowired
 	ClienteRepository clienteRepository;
-	
+
 	Cartao cartaoTeste;
 	Cliente clienteTeste;
-	
+
 	private void CriarCartaoTestes() throws ParseException {
 
 		clienteTeste = new Cliente();
-		
+
 		clienteTeste.setId(1);
 		clienteTeste.setRg("058870980");
 		clienteTeste.setSexo("M");
@@ -51,7 +51,7 @@ public class CartaoRepositoryTest {
 		cartaoTeste.setNumero("1234567891234567");
 		cartoes.add(cartaoTeste);
 		cartaoTeste.setCliente(clienteTeste);
-		
+
 		clienteTeste.setCartoes(cartoes);
 
 	}
@@ -71,14 +71,17 @@ public class CartaoRepositoryTest {
 		cartaoRepository.deleteAll();
 
 	}
+
 	@Test
 	public void testFindByNumero() {
 		Optional<Cartao> cartao = cartaoRepository.findByNumero(cartaoTeste.getNumero());
 		assertEquals(cartao.get().getNumero(), cartaoTeste.getNumero());
 	}
+
 	@Test
 	public void testFindByClienteId() {
 		List<Cartao> cartoes = cartaoRepository.findByClienteId(clienteTeste.getId());
 		assertTrue(!cartoes.isEmpty());
 	}
+
 }

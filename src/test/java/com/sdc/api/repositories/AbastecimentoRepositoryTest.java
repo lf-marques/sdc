@@ -41,7 +41,7 @@ public class AbastecimentoRepositoryTest {
 
 	private void CriarAbastecimentoTestes() throws ParseException {
 		clienteTeste = new Cliente();
-		
+
 		clienteTeste.setId(1);
 		clienteTeste.setRg("058870980");
 		clienteTeste.setSexo("M");
@@ -57,7 +57,7 @@ public class AbastecimentoRepositoryTest {
 		cartaoTeste.setNumero("1234567891234567");
 		cartoes.add(cartaoTeste);
 		cartaoTeste.setCliente(clienteTeste);
-		
+
 		clienteTeste.setCartoes(cartoes);
 
 		combustivelTeste = new Combustivel();
@@ -67,7 +67,7 @@ public class AbastecimentoRepositoryTest {
 		combustivelTeste.setDataAtualizacao(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2020"));
 		combustivelTeste.setTitulo("Gososa");
 		combustivelTeste.setValor(200.00);
-		
+
 		abastecimentoTeste = new Abastecimento();
 
 		abastecimentoTeste.setId(1);
