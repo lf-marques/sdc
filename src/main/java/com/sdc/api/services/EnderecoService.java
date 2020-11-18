@@ -1,5 +1,6 @@
 package com.sdc.api.services;
 
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +25,18 @@ public class EnderecoService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	public /*Optional<Endereco>*/ void buscarPorClienteId(int clienteId) {
+	public Optional<List<Endereco>> buscarPorClienteId(int clienteId) throws ConsistenciaException {
 
-		log.info("Service: buscando Endereco relacionado "
-				+ "ao cliente de id: {}", clienteId);
+		log.info("Service: buscando o endereco do cliente de id: {}", clienteId);
+
+		Optional<List<Endereco>> enderecos = Optional.ofNullable(enderecoRepository.findByClienteId(clienteId));
+
+		if (!enderecos.isPresent() || enderecos.get().size() < 1) {
+			log.info("Service: Nenhum endereco encontrado para o cliente de id: {}", clienteId);
+			throw new ConsistenciaException("Nenhum endereco encontrado para o cliente de id: {}", clienteId);
+		}
+
+		return enderecos;
 
 	}
 

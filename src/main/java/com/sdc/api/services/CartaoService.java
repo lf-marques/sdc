@@ -26,12 +26,6 @@ public class CartaoService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	public /* Optional<Cartao> */ void buscarPorNumero(String numero) {
-
-		log.info("Service: buscando um cartao com o numero: {}", numero);
-
-	}
-
 	public Optional<Cartao> buscarPorId(int id) throws ConsistenciaException {
 
 		log.info("Service: buscando os cartoes de id: {}", id);
