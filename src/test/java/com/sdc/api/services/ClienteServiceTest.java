@@ -56,22 +56,30 @@ public class ClienteServiceTest {
 	public void testBuscarPorIdExistente() throws ConsistenciaException {
 
 	}
-
+}
 
 	/*@Test(expected = ConsistenciaException.class)
 	public void testBuscarPorIdNaoExistente() throws ConsistenciaException {
+<<<<<<< HEAD
 
 		clienteService.buscarPorId(-2);
 
+=======
+		clienteService.buscarPorId(-2);
+>>>>>>> 54f1a2f68c7f81cd91859fe0ad7b3f088422e98c
 	}*/
 
  
 	/*@Test
 	public void testBuscarPorRg() throws ConsistenciaException {
 		BDDMockito.given(clienteRepository.findByRg(Mockito.anyString())).willReturn(Optional.of(new Cliente()));
+<<<<<<< HEAD
 
 		Optional<Cliente> resultado = clienteService.buscarPorRg("99930632");
 
+=======
+		Optional<Cliente> resultado = clienteService.buscarPorRg("99930632");
+>>>>>>> 54f1a2f68c7f81cd91859fe0ad7b3f088422e98c
 		assertTrue(resultado.isPresent());
 	}*/
 
@@ -87,11 +95,10 @@ public class ClienteServiceTest {
 		BDDMockito.given(usuarioRepository.findById(Mockito.anyInt())).willReturn(Optional.of(new Usuario()));
 		
 		BDDMockito.given(clienteRepository.save(Mockito.any(Cliente.class))).willReturn(new Cliente());
+<<<<<<< HEAD
 
 		Cliente resultado = clienteService.salvar(cliente);
 
 		assertNotNull(resultado);
 	}
 	 */
-}
-

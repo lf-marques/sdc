@@ -91,14 +91,16 @@ public class CombustivelServiceTest {
 	}
 
 	@Test
+ 
 	public void testSalvarComSucesso() throws ConsistenciaException {
-
+ 
 		BDDMockito.given(combustivelRepository.save(Mockito.any(Combustivel.class))).willReturn(new Combustivel());
 
 		Combustivel resultado = combustivelService.salvar(new Combustivel());
 
 		assertNotNull(resultado);
 	}
+ 
 	/*@Test(expected = ConsistenciaException.class)
 	public void testSalvarSemSucesso() throws ConsistenciaException {
 
@@ -112,3 +114,4 @@ public class CombustivelServiceTest {
 		combustivelService.salvar(combustivel);
 	}*/
 }
+

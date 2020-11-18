@@ -58,7 +58,11 @@ public class RegraServiceTest {
 
 		assertTrue(resultado.isPresent());
 	}
+ 
 	
+ 
+
+ 
 	@Test(expected = ConsistenciaException.class)
 	public void testBuscarPorNomeNaoExistente() throws ConsistenciaException {
 
@@ -66,7 +70,11 @@ public class RegraServiceTest {
 
 		regraService.buscarPorNome("Godofredo");
 	}
+ 
 	
+ 
+
+ 
 	@Test
 	public void testBuscarTodasRegras() throws ConsistenciaException{
 
@@ -87,4 +95,6 @@ public class RegraServiceTest {
 		regraService.buscarTodasAsRegras();
 
 	}
+ 
 }
+ 

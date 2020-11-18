@@ -22,8 +22,9 @@ public class RegraService {
 		Optional<Regra> regra = regraRepository.findById(id);
 		if (!regra.isPresent()) {
 			log.info("Service: Nenhuma regra com id: {} foi encontrada", id);
-			
-			 throw new ConsistenciaException("Nenhuma regra com id: {} foi encontrada", id);
+
+			throw new ConsistenciaException("Nenhuma regra com id: {} foi encontrada", id);
+
 		}
 		return regra;
 	}
@@ -33,8 +34,8 @@ public class RegraService {
 		Optional<Regra> regra = Optional.ofNullable(regraRepository.findByNome(nome));
 		if (!regra.isPresent()) {
 			log.info("Service: Nenhuma regra com nome: '{}' foi encontrada", nome);
-			
-			 throw new ConsistenciaException("Nenhuma regra com nome: '{}' foi encontrada", nome);
+
+			throw new ConsistenciaException("Nenhuma regra com nome: '{}' foi encontrada", nome);
 		}
 		return regra;
 	}
