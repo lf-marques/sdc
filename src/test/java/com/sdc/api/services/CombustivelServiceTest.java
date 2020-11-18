@@ -91,7 +91,7 @@ public class CombustivelServiceTest {
 	}
 
 	@Test
-	public void testSalvar() throws ConsistenciaException {
+	public void testSalvarComSucesso() throws ConsistenciaException {
 
 		BDDMockito.given(combustivelRepository.save(Mockito.any(Combustivel.class))).willReturn(new Combustivel());
 
@@ -99,4 +99,16 @@ public class CombustivelServiceTest {
 
 		assertNotNull(resultado);
 	}
+	/*@Test(expected = ConsistenciaException.class)
+	public void testSalvarSemSucesso() throws ConsistenciaException {
+
+		Combustivel combustivel = new Combustivel();
+		combustivel.setId(1);
+		
+		BDDMockito.given(combustivelRepository.findById(Mockito.anyInt())).willReturn(Optional.of(new Combustivel()));
+		
+		BDDMockito.given(combustivelRepository.save(Mockito.any(Combustivel.class))).willReturn(new Combustivel());
+
+		combustivelService.salvar(combustivel);
+	}*/
 }
