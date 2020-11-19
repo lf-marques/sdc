@@ -52,9 +52,17 @@ public class UsuarioService {
 
 	}
 
-	public /* Optional<Usuario> */ void buscarPorCpf(String cpf) {
-
+	public Optional<Usuario> buscarPorCpf(String cpf) throws ConsistenciaException {
 		log.info("Service: buscando um usuário com o cpf: {}", cpf);
+
+		Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findByCpf(cpf));
+
+		if (!usuario.isPresent()) {
+			log.info("Service: Nenhum usuário com cpf: {} foi encontrado", cpf);
+			throw new ConsistenciaException("Nenhum usuário com id: {} foi encontrado", cpf);
+		}
+
+		return usuario;
 
 	}
 
