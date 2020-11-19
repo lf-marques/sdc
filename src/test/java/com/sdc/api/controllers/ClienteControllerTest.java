@@ -36,6 +36,7 @@ import com.sdc.api.entities.Endereco;
 import com.sdc.api.entities.Regra;
 import com.sdc.api.entities.Usuario;
 import com.sdc.api.services.ClienteService;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
