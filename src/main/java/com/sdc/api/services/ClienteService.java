@@ -55,6 +55,25 @@ public class ClienteService {
 
 		return cliente;
 	}
+	
+	public Optional<Cliente> buscarPorCpf(String cpf) throws ConsistenciaException {
+		
+		log.info("Service: buscando um cliente com o cpf: {}", cpf);
+
+		Usuario usuario = usuarioRepository.findByCpf(cpf);
+		if(usuario.getId() > 0) {
+			Optional<Cliente> cliente = clienteRepository.findByUsuarioId(usuario.getId());	
+		
+			if (!cliente.isPresent()) {
+				log.info("Service: Nenhum cliente com rg: {} foi encontrado", cpf);
+				throw new ConsistenciaException("Nenhum cliente com rg: {} foi encontrado", cpf);
+			}
+			
+			return cliente;
+		}else {
+			throw new ConsistenciaException("Nenhum usuário com cpf: {} foi encontrado", cpf);
+		}
+	}
 
 	public Cliente salvar(Cliente cliente) throws ConsistenciaException {
 

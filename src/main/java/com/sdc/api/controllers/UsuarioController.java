@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sdc.api.dtos.ClienteDto;
 import com.sdc.api.dtos.SenhaDto;
 import com.sdc.api.dtos.UsuarioCadastroDto;
 import com.sdc.api.dtos.UsuarioDto;
@@ -53,13 +54,14 @@ public class UsuarioController {
 	 * @param Id do usuário
 	 * @return Dados do usuário
 	 */
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<UsuarioDto>> buscarPorId(@PathVariable("id") int id) {
+	@PostMapping(value = "/buscarPorId")
+	public ResponseEntity<Response<UsuarioDto>> buscarPorId(@RequestBody UsuarioDto usuarioDto,
+			BindingResult result) {
 		Response<UsuarioDto> response = new Response<UsuarioDto>();
 
 		try {
-			log.info("Controller: buscando usuario com id: {}", id);
-			Optional<Usuario> usuario = usuarioService.buscarPorId(id);
+			log.info("Controller: buscando usuario com id: {}", usuarioDto.getId());
+			Optional<Usuario> usuario = usuarioService.buscarPorId(Integer.parseInt(usuarioDto.getId()));
 			response.setDados(ConversaoUtils.Converter(usuario.get()));
 			return ResponseEntity.ok(response);
 		} catch (ConsistenciaException e) {

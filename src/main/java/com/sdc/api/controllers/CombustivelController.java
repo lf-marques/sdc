@@ -58,7 +58,7 @@ public class CombustivelController {
 		}
 	}
 	
-	@GetMapping(value = "/listar")
+	@PostMapping(value = "/listar")
 	public ResponseEntity<Response<List<CombustivelDto>>> listarCombustiveis() {
 
 		Response<List<CombustivelDto>> response = new Response<List<CombustivelDto>>();

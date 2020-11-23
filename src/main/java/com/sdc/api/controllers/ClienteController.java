@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sdc.api.utils.ConsistenciaException;
 import com.sdc.api.utils.ConversaoUtils;
 import com.sdc.api.dtos.ClienteDto;
+import com.sdc.api.dtos.UsuarioDto;
 import com.sdc.api.entities.Cliente;
 import com.sdc.api.services.ClienteService;
 import com.sdc.api.response.Response;
@@ -43,6 +44,30 @@ public class ClienteController {
 		try {
 			log.info("Controller: buscando cliente com id: {}", id);
 			Optional<Cliente> cliente = clienteService.buscarPorId(id);
+			response.setDados(ConversaoUtils.Converter(cliente.get()));
+			return ResponseEntity.ok(response);
+
+		} catch (ConsistenciaException e) {
+			log.info("Controller: Inconsistência de dados: {}", e.getMessage());
+			response.adicionarErro(e.getMensagem());
+			return ResponseEntity.badRequest().body(response);
+
+		} catch (Exception e) {
+			log.error("Controller: Ocorreu um erro na aplicação: {}", e.getMessage());
+			response.adicionarErro("Ocorreu um erro na aplicação: {}", e.getMessage());
+			return ResponseEntity.status(500).body(response);
+		}
+	}
+	
+	@PostMapping(value = "/buscarPorCpf")
+	public ResponseEntity<Response<ClienteDto>> buscarPorCpf(@RequestBody UsuarioDto usuarioDto,
+			BindingResult result) {
+
+		Response<ClienteDto> response = new Response<ClienteDto>();
+
+		try {
+			log.info("Controller: buscando cliente com cpf: {}", usuarioDto.getCpf());
+			Optional<Cliente> cliente = clienteService.buscarPorCpf(usuarioDto.getCpf());
 			response.setDados(ConversaoUtils.Converter(cliente.get()));
 			return ResponseEntity.ok(response);
 

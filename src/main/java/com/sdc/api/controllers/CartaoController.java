@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sdc.api.utils.ConsistenciaException;
 import com.sdc.api.utils.ConversaoUtils;
 import com.sdc.api.dtos.CartaoDto;
+import com.sdc.api.dtos.ClienteDto;
+import com.sdc.api.dtos.UsuarioDto;
 import com.sdc.api.entities.Cartao;
 import com.sdc.api.services.CartaoService;
 import com.sdc.api.response.Response;
@@ -36,16 +38,16 @@ public class CartaoController {
 	@Autowired
 	private CartaoService cartaoService;
 
-   	@PreAuthorize("hasAnyRole('CLIENTE')")
-	@GetMapping(value = "/cliente/{id}")
-	public ResponseEntity<Response<List<CartaoDto>>> buscarPorClienteId(@PathVariable("id") int id) {
+	@PostMapping(value = "/buscarPorCliente")
+	public ResponseEntity<Response<List<CartaoDto>>> buscarPorClienteId(@RequestBody ClienteDto clienteDto,
+			BindingResult result) {
 
 		Response<List<CartaoDto>> response = new Response<List<CartaoDto>>();
 
 		try {
-			log.info("Controller: buscando cartões do cliente de ID: {}", id);
+			log.info("Controller: buscando cartões do cliente de ID: {}", clienteDto.getId());
 
-			Optional<List<Cartao>> listaCartoes = cartaoService.buscarPorClienteId(id);
+			Optional<List<Cartao>> listaCartoes = cartaoService.buscarPorClienteId(Integer.parseInt(clienteDto.getId()));
 
 			response.setDados(ConversaoUtils.ConverterLista(listaCartoes.get()));
 
@@ -65,8 +67,7 @@ public class CartaoController {
 		}
 	}
 
-   	@PreAuthorize("hasAnyRole('CLIENTE')")
-	@PostMapping
+	@PostMapping(value = "/salvar")
 	public ResponseEntity<Response<CartaoDto>> salvar(@Valid @RequestBody CartaoDto cartaoDto, BindingResult result) {
 
 		Response<CartaoDto> response = new Response<CartaoDto>();

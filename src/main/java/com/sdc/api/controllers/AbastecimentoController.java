@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sdc.api.dtos.AbastecimentoDto;
 import com.sdc.api.dtos.CombustivelDto;
+import com.sdc.api.dtos.UsuarioDto;
 import com.sdc.api.entities.Abastecimento;
 import com.sdc.api.entities.Combustivel;
 import com.sdc.api.services.AbastecimentoService;
@@ -36,13 +37,14 @@ public class AbastecimentoController {
 	@Autowired
 	private AbastecimentoService abastecimentoService;
 
-	@GetMapping(value = "/id/{id}")
-	public ResponseEntity<Response<AbastecimentoDto>> buscarPorId(@PathVariable("id") int id) {
+	@PostMapping(value = "/buscarPorId")
+	public ResponseEntity<Response<AbastecimentoDto>> buscarPorId(@RequestBody AbastecimentoDto abastecimentoDto,
+			BindingResult result) {
 		Response<AbastecimentoDto> response = new Response<AbastecimentoDto>();
 
 		try {
-			log.info("Controller: buscando abastecimento de id: {}", id);
-			Optional<Abastecimento> abastecimento = abastecimentoService.buscarPorId(id);
+			log.info("Controller: buscando abastecimento de id: {}", abastecimentoDto.getId());
+			Optional<Abastecimento> abastecimento = abastecimentoService.buscarPorId(Integer.parseInt(abastecimentoDto.getId()));
 			response.setDados(ConversaoUtils.Converter(abastecimento.get()));
 			return ResponseEntity.ok(response);
 
@@ -57,8 +59,8 @@ public class AbastecimentoController {
 			return ResponseEntity.status(500).body(response);
 		}
 	}
-	
-	@PostMapping
+
+	@PostMapping(value = "/salvar")
 	public ResponseEntity<Response<AbastecimentoDto>> salvar(@Valid @RequestBody AbastecimentoDto abastecimentoDto,
 			BindingResult result) {
 		Response<AbastecimentoDto> response = new Response<AbastecimentoDto>();
