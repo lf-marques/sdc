@@ -69,6 +69,7 @@ public class CartaoRepositoryTest {
 	public void tearDown() throws Exception {
 
 		cartaoRepository.deleteAll();
+		clienteRepository.deleteAll();
 
 	}
 
